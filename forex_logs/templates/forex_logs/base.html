@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <title>
+            {% block page_title %}{% endblock %}
+        </title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+        {% block head %}{% endblock %}
+    </head>
+
+    <body>
+
+        <div>
+            <a href="{% url 'index' %}">Home</a>-
+            <a href="{% url 'currency_pairs' %}">Pairs</a>
+        </div>
+        
+        {% block body %}{% endblock %}
+    </body>
+
+</html>

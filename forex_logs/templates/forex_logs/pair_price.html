@@ -1,0 +1,36 @@
+{% extends 'forex_logs/base.html' %}
+
+{% block page_title %}
+    Pair Price
+{% endblock %}
+
+{% block body %}
+
+    <div>
+       Enter Price For {{ pair.text }}
+    </div>
+
+    <div>
+        <ul>
+            {% for price in prices %}
+                <li>
+                    Open:{{ price.price_open}}
+                </li>
+                <li>
+                    High:{{ price.price_high }}
+                </li>
+                <li>
+                    Low:{{ price.price_low }}
+                </li>
+                <li>
+                    Close:{{ price.price_close }}
+                </li>
+            {% empty %}
+                <li>
+                    No Price Data Yet.
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+{% endblock %}

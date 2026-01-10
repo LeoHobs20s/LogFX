@@ -1,0 +1,19 @@
+{% extends 'forex_logs/base.html' %}
+
+{% block page_title %}
+    Currency Pairs
+{% endblock %}
+
+{% block head %}{% endblock %}
+
+{% block body %}
+
+    {% for pair in pairs %}
+
+        <div><a href="{% url 'pair_price' pair.id %}">{{ pair.text|linebreaks }}</a></div>
+    {% empty %}
+        <div>No Currency Pairs Added Yet.</div>
+    {% endfor %}
+    <div><a href="{% url 'add_pair' %}">Add Currency Pair</a></div>
+
+{% endblock %}

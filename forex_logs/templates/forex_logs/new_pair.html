@@ -1,0 +1,16 @@
+{% extends 'forex_logs/base.html' %}
+
+{% block page_title %}
+    Add Currency Pair
+{% endblock %}
+
+{% block body %}
+
+    <form action="{% url 'add_pair' %}" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <button type="submit">Add Pair</button>
+    </form>
+
+{% endblock %}
