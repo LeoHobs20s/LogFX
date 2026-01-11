@@ -32,7 +32,7 @@
                 <div>
                     Date Inserted: {{ price.date_inserted|date:'M-d-Y,  H:i' }}
                 </div>
-                <div><a href="{% url 'edit_pair_price' price.id %}">Edit</a></div><br />
+                <div><a href="{% url 'edit_pair_price' price.id %}">Edit</a> - <a href="{% url 'delete_pair_price' price.id %}">Delete</a></div><br />
             {% empty %}
                 <li>
                     No Price Data Yet.

@@ -115,3 +115,11 @@ def edit_pair_price(request, price_id):
 
     context = {'form':form, 'pair':pair, 'price':price}
     return render(request, 'forex_logs/edit_pair_price.html', context) 
+
+
+def delete_pair_price(request, price_id):
+    """ This view will render the feature to delete a pair price """
+
+    price = get_object_or_404(Price, pk=price_id)
+    price.delete()
+    return HttpResponseRedirect(reverse('pair_price', args=[(price.pair).id]))
