@@ -20,7 +20,7 @@
                 <a href="{% url 'currency_pairs' %}">Pairs</a> -
                 <a href="{% url 'logout_view' %}">log out</a>
             {% else %}
-                -<a href="{% url 'login_view' %}">Log in</a>
+                <a href="{% url 'login_view' %}">Log in</a> - <a href="{% url 'register' %}">Register</a>
             {% endif %}
         </div>
         

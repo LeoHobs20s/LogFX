@@ -1,0 +1,21 @@
+{% extends 'forex_logs/base.html' %}
+
+{% block page_title %}Registration{% endblock %}
+
+
+{% block body %}
+
+    <div>
+        Register An Account:
+    </div>
+
+    <div>
+        <form action="{% url 'register' %}" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+
+            <button type="submit">Register</button>
+        </form>
+    </div>
+
+{% endblock %}
