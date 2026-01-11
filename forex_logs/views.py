@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 
@@ -12,6 +13,7 @@ def index(request):
     return render(request, 'forex_logs\index.html')
 
 
+@login_required
 def currency_pairs(request):
     """ This view will render the currency pair page """
 
@@ -20,6 +22,7 @@ def currency_pairs(request):
     return render(request, 'forex_logs\pairs.html', context)
 
 
+@login_required
 def add_pair(request):
     """ This view will render the add pair page """
 
@@ -37,6 +40,7 @@ def add_pair(request):
     return render(request, 'forex_logs/new_pair.html', context)
 
 
+@login_required
 def pair_price(request, pair_id):
     """ This view will render the pair's price data """
 
@@ -46,6 +50,7 @@ def pair_price(request, pair_id):
     return render(request, 'forex_logs/pair_price.html', context)
 
 
+@login_required
 def add_price(request, pair_id):
     """ This will render a page to add new currency price data """
 
@@ -66,6 +71,7 @@ def add_price(request, pair_id):
     return render(request, 'forex_logs/new_price.html', {'form':form, 'pair':pair})
 
 
+@login_required
 def edit_pair(request, pair_id):
     """ This view will render the page to edit the name of the pair """
 
@@ -94,6 +100,7 @@ def delete_pair(request, pair_id):
     return HttpResponseRedirect(reverse('currency_pairs'))
 
 
+@login_required
 def edit_pair_price(request, price_id):
     """ This view will render the update feature for the pair prices """
 

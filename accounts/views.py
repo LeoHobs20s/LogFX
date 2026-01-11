@@ -1,4 +1,4 @@
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
@@ -24,3 +24,10 @@ def login_view(request):
     
     context = {'form':form}
     return render(request, 'accounts/login.html', context)
+
+
+def logout_view(request):
+    """ This view will render the logout feature """
+
+    logout(request)
+    return HttpResponseRedirect(reverse('login_view'))
