@@ -18,9 +18,6 @@ def currency_pairs(request):
     """ This view will render the currency pair page """
 
     pairs = Pair.objects.filter(user=request.user).order_by('date_created')
-
-    if request.user != pairs[0].user:
-        raise Http404
     
     context = {'pairs':pairs}
     return render(request, 'forex_logs\pairs.html', context)
@@ -37,7 +34,9 @@ def add_pair(request):
         # POST Data Submitted; process data
         form = PairForm(data=request.POST)
         if form.is_valid():
-            form.save()
+            new_pair = form.save(commit=False)
+            new_pair.user = request.user
+            new_pair.save()
             return HttpResponseRedirect(reverse('currency_pairs'))
     
     context = {'form':form}
@@ -48,9 +47,8 @@ def add_pair(request):
 def pair_price(request, pair_id):
     """ This view will render the pair's price data """
 
-    pair = get_object_or_404(Pair, pk=pair_id)
+    pair = get_object_or_404(Pair, pk=pair_id, user=request.user)
     prices = pair.price_set.order_by('date_inserted')
-    # if request.user != pair
     context = {'pair':pair, 'prices':prices}
     return render(request, 'forex_logs/pair_price.html', context)
 
@@ -80,7 +78,7 @@ def add_price(request, pair_id):
 def edit_pair(request, pair_id):
     """ This view will render the page to edit the name of the pair """
 
-    pair = Pair.objects.filter(user=request.user).order_by('date_created')
+    pair = get_object_or_404(Pair, pk=pair_id, user=request.user)
 
     if request.method != 'POST':
         # Initial Request, create form with current data
@@ -101,15 +99,18 @@ def delete_pair(request, pair_id):
     """ This view will run the logic code to delete the currency pair """
 
     pair = get_object_or_404(Pair, pk=pair_id)
-    pair.delete()
-    return HttpResponseRedirect(reverse('currency_pairs'))
+    if pair.user == request.user:
+        pair.delete()
+        return HttpResponseRedirect(reverse('currency_pairs'))
+    else:
+        raise Http404
 
 
 @login_required
 def edit_pair_price(request, price_id):
     """ This view will render the update feature for the pair prices """
 
-    price = get_object_or_404(Price, pk=price_id)
+    price = get_object_or_404(Price, pk=price_id, user=request.user)
     pair = price.pair
 
     if request.method != 'POST':
