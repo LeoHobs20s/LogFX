@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 
-from .models import Pair
+from .models import Pair, Price
 from .forms import PairForm, PriceForm
 
 
@@ -90,6 +90,28 @@ def delete_pair(request, pair_id):
     """ This view will run the logic code to delete the currency pair """
 
     pair = get_object_or_404(Pair, pk=pair_id)
-
     pair.delete()
     return HttpResponseRedirect(reverse('currency_pairs'))
+
+
+def edit_pair_price(request, price_id):
+    """ This view will render the update feature for the pair prices """
+
+    price = get_object_or_404(Price, pk=price_id)
+    pair = price.pair
+
+    if request.method != 'POST':
+        # Initial Request; create a form with current pair price data
+        form = PriceForm(instance=price)
+    else:
+        # POST Data Submitted; replace current pair price data with post data
+        form = PriceForm(instance=price, data=request.POST)
+
+        if form.is_valid():
+            updated_price = form.save(commit=False)
+            updated_price.pair = pair
+            updated_price.save()
+            return HttpResponseRedirect(reverse('pair_price', args=[pair.id]))
+
+    context = {'form':form, 'pair':pair, 'price':price}
+    return render(request, 'forex_logs/edit_pair_price.html', context) 

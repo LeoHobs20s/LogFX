@@ -31,7 +31,8 @@
                 </li>
                 <div>
                     Date Inserted: {{ price.date_inserted|date:'M-d-Y,  H:i' }}
-                </div><br />
+                </div>
+                <div><a href="{% url 'edit_pair_price' price.id %}">Edit</a></div><br />
             {% empty %}
                 <li>
                     No Price Data Yet.
