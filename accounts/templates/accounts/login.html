@@ -1,0 +1,18 @@
+{% extends 'forex_logs/base.html' %}
+
+{% block page_title %}Login{% endblock %}
+
+{% block body %}
+
+    <div>Login To Account:</div>
+
+    <div>
+        <form action="{% url 'login_view' %}" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+
+            <button type="submit">Log in</button>
+        </form>
+    </div>
+
+{% endblock %}
