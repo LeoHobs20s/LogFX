@@ -84,3 +84,12 @@ def edit_pair(request, pair_id):
         
     context = {'form':form, 'pair':pair}
     return render(request, 'forex_logs/edit_pair.html', context)
+
+
+def delete_pair(request, pair_id):
+    """ This view will run the logic code to delete the currency pair """
+
+    pair = get_object_or_404(Pair, pk=pair_id)
+
+    pair.delete()
+    return HttpResponseRedirect(reverse('currency_pairs'))
