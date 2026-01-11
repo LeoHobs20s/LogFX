@@ -1,9 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 
 from .models import Pair
-from .forms import PairForm
+from .forms import PairForm, PriceForm
 
 
 def index(request):
@@ -40,7 +40,27 @@ def add_pair(request):
 def pair_price(request, pair_id):
     """ This view will render the pair's price data """
 
-    pair = Pair.objects.get(id=pair_id)
+    pair = get_object_or_404(Pair, pk=pair_id)
     prices = pair.price_set.order_by('date_inserted')
     context = {'pair':pair, 'prices':prices}
     return render(request, 'forex_logs/pair_price.html', context)
+
+
+def add_price(request, pair_id):
+    """ This will render a page to add new currency price data """
+
+    pair = get_object_or_404(Pair, pk=pair_id)
+
+    if request.method != 'POST':
+        # No Data Submitted; create blank form
+        form = PriceForm()
+    else:
+        # POST Data Submitted; process data
+        form = PriceForm(data=request.POST)
+        if form.is_valid():
+            prices = form.save(commit=False)
+            prices.pair = pair
+            prices.save()
+            return HttpResponseRedirect(reverse('pair_price', args=[pair_id]))
+    
+    return render(request, 'forex_logs/new_price.html', {'form':form, 'pair':pair})

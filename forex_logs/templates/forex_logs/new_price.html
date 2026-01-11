@@ -1,0 +1,21 @@
+{% extends 'forex_logs/base.html' %}
+
+{% block page_title %}New Currency Prices{% endblock %}
+
+
+{% block body %}
+
+    <div>
+        Add Prices For {{ pair.text }}
+    </div>
+
+    <div>
+        <form action="{% url 'add_price' pair.id %}" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+
+            <button type="submit">Add Prices</button>
+        </form>
+    </div>
+
+{% endblock %}
