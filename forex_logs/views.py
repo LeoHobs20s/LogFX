@@ -64,3 +64,23 @@ def add_price(request, pair_id):
             return HttpResponseRedirect(reverse('pair_price', args=[pair_id]))
     
     return render(request, 'forex_logs/new_price.html', {'form':form, 'pair':pair})
+
+
+def edit_pair(request, pair_id):
+    """ This view will render the page to edit the name of the pair """
+
+    pair = get_object_or_404(Pair, pk=pair_id)
+
+    if request.method != 'POST':
+        # Initial Request, create form with current data
+        form = PairForm(instance=pair)
+    else:
+        # POST Request, replace current data with the new data
+        form = PairForm(instance=pair, data=request.POST)
+        
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse('currency_pairs'))
+        
+    context = {'form':form, 'pair':pair}
+    return render(request, 'forex_logs/edit_pair.html', context)

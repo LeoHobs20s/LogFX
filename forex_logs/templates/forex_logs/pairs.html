@@ -10,7 +10,7 @@
 
     {% for pair in pairs %}
 
-        <div><a href="{% url 'pair_price' pair.id %}">{{ pair.text|linebreaks }}</a></div>
+        <p><a href="{% url 'pair_price' pair.id %}">{{ pair.text }}</a> - <a href="{% url 'edit_pair' pair.id %}">Edit</a></p>
     {% empty %}
         <div>No Currency Pairs Added Yet.</div>
     {% endfor %}
