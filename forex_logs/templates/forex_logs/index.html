@@ -7,5 +7,13 @@
 {% block head %}{% endblock %}
 
 {% block body %}
-    <h1>LogFX</h1>
+    <div class="container justify-content-center text-bg-primary rounded p-4 w-75 mt-4">
+        <p class="display-4">
+            A focused Forex price logging application
+        </p>
+    </div>
+
+    <div class="container border-top border-3 mt-3 pt-3 display-5">
+        <p><a href="{% url 'register' %}" class="text-decoration-none">Sign in</a> to start logging prices and managing your currency pairs. Or <a href="{% url 'login_view' %}" class="text-decoration-none">Log in</a> if you already have an account</p>
+    </div>
 {% endblock %}

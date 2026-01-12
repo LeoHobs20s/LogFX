@@ -5,11 +5,13 @@
 
 {% block body %}
 
-    <div>
-        Register An Account:
+    <div class="container-fluid justify-content-center p-auto">
+        <p class="display-6">
+            Register An Account:
+        </p>
     </div>
 
-    <div>
+    <div class="container-fluid w-75 text-bg-light">
         <form action="{% url 'register' %}" method="post">
             {% csrf_token %}
             {{ form.as_p }}
