@@ -1,7 +1,10 @@
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
+from django.contrib import messages
 from django.urls import reverse
+
+
 from .forms import LoginForm, RegistrationForm
 
 
@@ -20,7 +23,10 @@ def login_view(request):
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
-                return HttpResponseRedirect(reverse('index'))
+                messages.success(request, f'Welcome {user.username}')
+                return HttpResponseRedirect(reverse('index'))   
+            else:
+                messages.error(request, 'Invalid Credentials')
     
     context = {'form':form}
     return render(request, 'accounts/login.html', context)

@@ -23,6 +23,19 @@
                 <a href="{% url 'login_view' %}">Log in</a> - <a href="{% url 'register' %}">Register</a>
             {% endif %}
         </div>
+
+        <div>
+            {% if messages %}
+
+                <div>
+                    {% for message in messages %}
+                        <p class="alert alert-{{ messages.tags }}">
+                            {{ message }}
+                        </p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
         
         {% block body %}{% endblock %}
     </body>
