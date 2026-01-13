@@ -95,20 +95,20 @@ def edit_pair(request, pair_id):
     return render(request, 'forex_logs/edit_pair.html', context)
 
 
-def confirm_delete(request, pair_id):
+@login_required
+def confirm_delete(request, object_id):
     """ This view will render the delete confirmation page """
+
+    return render(request, 'forex_logs/confirm_page.html', {'object_id':object_id})
 
 
 def delete_pair(request, pair_id):
     """ This view will run the logic code to delete the currency pair """
 
-    pair = get_object_or_404(Pair, pk=pair_id)
-    if pair.user == request.user:
-        pair.delete()
-        return HttpResponseRedirect(reverse('currency_pairs'))
-    else:
-        raise Http404
-
+    pair = get_object_or_404(Pair, pk=pair_id, user=request.user)
+    pair.delete()
+    return HttpResponseRedirect(reverse('currency_pairs'))
+    
 
 @login_required
 def edit_pair_price(request, price_id):
@@ -137,6 +137,6 @@ def edit_pair_price(request, price_id):
 def delete_pair_price(request, price_id):
     """ This view will render the feature to delete a pair price """
 
-    price = get_object_or_404(Price, pk=price_id)
+    price = get_object_or_404(Price, pk=price_id, user=request.user)
     price.delete()
     return HttpResponseRedirect(reverse('pair_price', args=[(price.pair).id]))

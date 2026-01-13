@@ -1,0 +1,20 @@
+{% extends 'forex_logs/base.html' %}
+
+{% block page_title %}
+    Delete Confirmation
+{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        <p class="display-5">
+            Please confirm if you want to delete or cancel
+        </p>
+    </div>
+
+    <div class="container">
+        <a href="{% url 'delete_pair' object_id %}" class="btn btn-danger">Confirm</a>
+        <a href="{% url 'currency_pairs' %}" class="btn btn-primary">Cancel</a>
+    </div>
+
+{% endblock %}
