@@ -8,12 +8,20 @@
 
 {% block body %}
 
+    <div class="container-fluid mt-3 border-bottom border-4 w-50 justify-content-center">
+        <p class="display-4">
+            Currency Pairs
+        </p>
+    </div>
+
     {% for pair in pairs %}
 
-        <p><a href="{% url 'pair_price' pair.id %}">{{ pair.text }}</a> - <a href="{% url 'edit_pair' pair.id %}">Edit</a> - <a href="{% url 'delete_pair' pair.id %}">Delete</a></p>
+        <div class="container mt-5">
+            <p><a href="{% url 'pair_price' pair.id %}" class="btn btn-danger">{{ pair.text }}</a> <a href="{% url 'edit_pair' pair.id %}" class="btn btn-dark">Edit</a> <a href="{% url 'delete_pair' pair.id %}" class="btn btn-warning">Delete</a></p>
+        </div>
     {% empty %}
         <div>No Currency Pairs Added Yet.</div>
     {% endfor %}
-    <div><a href="{% url 'add_pair' %}">Add Currency Pair</a></div>
+    <div class="container mt-3"><a href="{% url 'add_pair' %}"class='btn btn-outline-primary'>Add Currency Pair</a></div>
 
 {% endblock %}

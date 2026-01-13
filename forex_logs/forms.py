@@ -13,7 +13,8 @@ class PairForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for field in self.fields.values():
-            field.widget.attrs['class'] = 'form-control w-50'
+            field.widget.attrs['class'] = 'form-control w-50 text-bg-light'
+            field.widget.attrs['placeholder'] = 'Enter Currency Pair (e.g USD/JPY)'
 
 
 class PriceForm(forms.ModelForm):
@@ -27,4 +28,4 @@ class PriceForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for field in self.fields.values():
-            field.widget.attrs['class'] = 'form-control w-50'
+            field.widget.attrs['class'] = 'form-control w-50 bg-light'

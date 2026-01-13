@@ -95,6 +95,10 @@ def edit_pair(request, pair_id):
     return render(request, 'forex_logs/edit_pair.html', context)
 
 
+def confirm_delete(request, pair_id):
+    """ This view will render the delete confirmation page """
+
+
 def delete_pair(request, pair_id):
     """ This view will run the logic code to delete the currency pair """
 

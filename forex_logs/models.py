@@ -20,10 +20,10 @@ class Price(models.Model):
     """ This class represents the data model for price data """
     
     pair = models.ForeignKey(Pair, on_delete=models.CASCADE)
-    price_open = models.DecimalField(max_digits=7, decimal_places=2)
-    price_close = models.DecimalField(max_digits=7, decimal_places=2)
-    price_high = models.DecimalField(max_digits=7, decimal_places=2)
-    price_low = models.DecimalField(max_digits=7, decimal_places=2)
+    price_open = models.DecimalField(max_digits=10, decimal_places=7)
+    price_close = models.DecimalField(max_digits=10, decimal_places=7)
+    price_high = models.DecimalField(max_digits=10, decimal_places=7)
+    price_low = models.DecimalField(max_digits=10, decimal_places=7)
     note = models.CharField(max_length=150)
     date_inserted = models.DateTimeField(auto_now_add=True)
 

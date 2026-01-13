@@ -11,12 +11,12 @@
         </p>
     </div>
 
-    <div class="container-fluid w-75 text-bg-light">
+    <div class="container-fluid w-75 text-bg-dark rounded p-auto pb-3 pt-3">
         <form action="{% url 'register' %}" method="post">
             {% csrf_token %}
             {{ form.as_p }}
 
-            <button type="submit">Register</button>
+            <button type="submit" class="btn btn-primary">Register</button>
         </form>
     </div>
 

@@ -4,41 +4,52 @@
     Pair Price
 {% endblock %}
 
+{% block head %}
+    <link rel="stylesheet" href="cdn.jsdelivr.net">
+{% endblock %}
+
 {% block body %}
 
-    <div>
-       Price For {{ pair.text }}
+    <div class="container w-50 border-bottom border-3">
+       <p class="display-5">
+            Price For {{ pair.text }}
+       </p>
     </div>
 
-    <div>
-        <a href="{% url 'add_price' pair.id %}">Add New Prices</a>
+    <div class="container m-0 mt-3 mb-3">
+        <a href="{% url 'currency_pairs' %}" class="btn btn-outline-dark"><i class="bi bi-arrow-left"></i> BACK</a>
+        <a href="{% url 'add_price' pair.id %}" class="btn btn-outline-primary">Add New Prices</a>
     </div>
 
-    <div>
-        <ul>
+    <div class="table-responsive">
+        <table class="table">
+            <thead class="table-dark">
+                <tr>
+                    <th>Price Open</th>
+                    <th>Price High</th>
+                    <th>Price Low</th>
+                    <th>Price Close</th>
+                    <th>Date Inserted</th>
+                </tr>
+            </thead>
+            <tbody class="table-info">
             {% for price in prices %}
-                <li>
-                    Open:{{ price.price_open}}
-                </li>
-                <li>
-                    High:{{ price.price_high }}
-                </li>
-                <li>
-                    Low:{{ price.price_low }}
-                </li>
-                <li>
-                    Close:{{ price.price_close }}
-                </li>
-                <div>
-                    Date Inserted: {{ price.date_inserted|date:'M-d-Y,  H:i' }}
-                </div>
-                <div><a href="{% url 'edit_pair_price' price.id %}">Edit</a> - <a href="{% url 'delete_pair_price' price.id %}">Delete</a></div><br />
+                <tr>
+                    <td>{{ price.price_open }}</td>
+                    <td>{{ price.price_high}}</td>
+                    <td>{{ price.price_low }}</td>
+                    <td>{{ price.price_close }}</td>
+                    <td>{{ price.date_inserted|date:'M d Y' }}
+                        
+                    </td>
+                </tr>
             {% empty %}
-                <li>
+                <div>
                     No Price Data Yet.
-                </li>
+                </div>
             {% endfor %}
-        </ul>
+            </tbody>
+        </table>
     </div>
 
 {% endblock %}

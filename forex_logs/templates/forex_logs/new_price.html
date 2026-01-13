@@ -5,16 +5,18 @@
 
 {% block body %}
 
-    <div>
-        Add Prices For {{ pair.text }}
+    <div class="container w-75 border-bottom border-3 mt-3">
+        <p class="display-5">
+            Add Prices For {{ pair.text }}
+        </p>
     </div>
 
-    <div>
+    <div class="container mt-3">
         <form action="{% url 'add_price' pair.id %}" method="post">
             {% csrf_token %}
             {{ form.as_p }}
 
-            <button type="submit">Add Prices</button>
+            <button type="submit" class="btn btn-primary">Add Prices</button>
         </form>
     </div>
 

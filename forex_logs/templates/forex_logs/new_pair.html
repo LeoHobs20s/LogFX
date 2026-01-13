@@ -6,11 +6,19 @@
 
 {% block body %}
 
-    <form action="{% url 'add_pair' %}" method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
+    <div class="container border-bottom border-3 mt-3">
+        <p class="display-5">
+            Add New Currency Pair
+        </p>
+    </div>
 
-        <button type="submit">Add Pair</button>
-    </form>
+    <div class="container mt-3">
+        <form action="{% url 'add_pair' %}" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+
+            <button type="submit" class="btn btn-primary">Add Pair</button>
+        </form>
+    </div>
 
 {% endblock %}
