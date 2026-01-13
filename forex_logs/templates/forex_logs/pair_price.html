@@ -40,7 +40,8 @@
                     <td>{{ price.price_low }}</td>
                     <td>{{ price.price_close }}</td>
                     <td>{{ price.date_inserted|date:'M d Y' }}
-                        
+                    <a href="{% url 'edit_pair_price' price.id %}" class="btn btn-outline-dark mr-3">Edit</a>
+                    <a href="{% url 'confirm_delete' price.id 2 %}" class="btn btn-outline-primary">Delete</a>
                     </td>
                 </tr>
             {% empty %}

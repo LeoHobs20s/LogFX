@@ -3,16 +3,19 @@
 {% block page_title %}Edit Currency Prices{% endblock %}
 
 {% block body %}
-    <div>
-        Edit Currency Prices For: {{ pair.text|linebreaks }}
+    <div class="container">
+        <p class="display-5">
+            Edit Currency Prices For: {{ pair.text}}
+        </p>
     </div>
 
-    <div>
+    <div class="container">
         <form action="{% url 'edit_pair_price' price.id %}" method="post">
             {% csrf_token %}
             {{ form.as_p }}
 
-            <button type="submit">Save Changes</button>
+            <button type="submit" class="btn btn-success">Save Changes</button>
+            <a href="{% url 'pair_price' pair.id %}" class="btn btn-warning">Cancel</a>
         </form>
     </div>
 {% endblock %}

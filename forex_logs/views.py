@@ -96,10 +96,21 @@ def edit_pair(request, pair_id):
 
 
 @login_required
-def confirm_delete(request, object_id):
+def confirm_delete(request, object_id, option):
     """ This view will render the delete confirmation page """
+    object = _get_specified_object(object_id, option)
+    return render(request, 'forex_logs/confirm_page.html', {'object':object, 'option':option})
 
-    return render(request, 'forex_logs/confirm_page.html', {'object_id':object_id})
+
+def _get_specified_object(object_id, option):
+    """ This view will return the object required for the selected option """
+
+    if option == 1:
+        # return a pair object
+        return get_object_or_404(Pair, pk=object_id)
+    elif option == 2:
+        # return a price object
+        return get_object_or_404(Price, pk=object_id)
 
 
 def delete_pair(request, pair_id):
@@ -114,8 +125,11 @@ def delete_pair(request, pair_id):
 def edit_pair_price(request, price_id):
     """ This view will render the update feature for the pair prices """
 
-    price = get_object_or_404(Price, pk=price_id, user=request.user)
+    price = get_object_or_404(Price, pk=price_id)
     pair = price.pair
+
+    if pair.user != request.user:
+        raise Http404
 
     if request.method != 'POST':
         # Initial Request; create a form with current pair price data

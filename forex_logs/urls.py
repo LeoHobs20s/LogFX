@@ -12,7 +12,7 @@ urlpatterns = [
     path('edit_pair/<int:pair_id>/', views.edit_pair, name='edit_pair'),
     path('delete_pair/<int:pair_id>/', views.delete_pair, name='delete_pair'),
     path('edit_pair_price/<int:price_id>/', views.edit_pair_price, name='edit_pair_price'),
-    path('confirm_delete/<int:object_id>/', views.confirm_delete, name='confirm_delete'),
+    path('confirm_delete/<int:object_id>/<int:option>/', views.confirm_delete, name='confirm_delete'),
     path('delete_pair_price/<int:price_id>/', views.delete_pair_price,
      name='delete_pair_price'),
 ]

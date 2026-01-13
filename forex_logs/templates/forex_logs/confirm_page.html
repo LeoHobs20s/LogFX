@@ -13,8 +13,13 @@
     </div>
 
     <div class="container">
-        <a href="{% url 'delete_pair' object_id %}" class="btn btn-danger">Confirm</a>
-        <a href="{% url 'currency_pairs' %}" class="btn btn-primary">Cancel</a>
+       {% if option == 1 %}
+            <a href="{% url 'delete_pair' object.id %}" class="btn btn-danger">Confirm</a>
+            <a href="{% url 'currency_pairs' %}" class="btn btn-primary">Cancel</a>
+        {% elif option == 2 %}
+            <a href="{% url 'delete_pair_price' object.id %}" class="btn btn-danger">Delete</a>
+            <a href="{% url 'pair_price' object.pair.id %}" class="btn btn-primary">Cancel</a>
+        {% endif %}
     </div>
 
 {% endblock %}
